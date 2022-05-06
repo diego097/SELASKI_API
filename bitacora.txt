@@ -1,0 +1,7 @@
+// Para ejecutar el servidor de endpoints nos ubicamos en la carpeta raiz y ejecutamos el siguiente comando:
+
+        npm run dev
+
+//Para ejecutar el proyecto angular nos ubicamos en la ruta src/frontend/selaski_frontend y ejecutamos el siguiente comando
+
+        ng serve -o

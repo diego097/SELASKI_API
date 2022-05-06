@@ -3,7 +3,8 @@ const orderCtrl = {};
 
 orderCtrl.create = async (req, res) => {
   try {
-    const data = req.body;
+    const data = req.body.params;
+    console.log(data);
     pool.query(
       "INSERT INTO orders (IdUser, OrderNumber, DateTime, ProviderName, DateCreated, Observation, TotalValue, Status) VALUES (?,?,?,?,?,?,?,?)",
       [
@@ -31,7 +32,8 @@ orderCtrl.create = async (req, res) => {
 
 orderCtrl.delete = async (req, res) => {
   try {
-    const data = req.body;
+    const data = req.query;
+    console.log(data);
     pool.query(
       "UPDATE orders SET Status = 0 WHERE IdOrder = ?",
       [data.IdOrder],
@@ -50,7 +52,8 @@ orderCtrl.delete = async (req, res) => {
 
 orderCtrl.update = async (req, res) => {
   try {
-    const data = req.body;
+    const data = req.body.params;
+    console.log(data);
     pool.query(
       'UPDATE orders SET IdUser = ?, OrderNumber = ?, DateTime = ?, ProviderName = ?, DateCreated = ?, Observation  = ?, TotalValue = ?,   Status = ? WHERE IdOrder = ?',
       [data.IdUser,data.OrderNumber,data.DateTime, data.ProviderName, data.DateCreated, data.Observation, data.TotalValue, data.Status, data.IdOrder],

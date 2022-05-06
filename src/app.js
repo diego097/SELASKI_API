@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors()); 
 
 //Routes
-app.use("/api/v1/", require("./api/v1/routes/api.routes"));
+app.use("/api/v1", require("./api/v1/routes/api.routes"));
 app.get("/", (req, res) => {
   res.send("Selaski API");
 });

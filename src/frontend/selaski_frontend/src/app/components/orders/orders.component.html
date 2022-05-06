@@ -1,0 +1,292 @@
+<br />
+<br />
+<div class="container">
+  <div class="bd-example">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="openFormNewOrder(order_form)"
+    >
+      Crear Orden
+    </button>
+  </div>
+  <br />
+  <br />
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">ID User</th>
+            <th scope="col">Numero de oden</th>
+            <th scope="col">Proveedor</th>
+            <th scope="col">Observación</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Valor Total</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <th scope="row">{{ order.IdOrder }}</th>
+            <th scope="row">{{ order.IdUser }}</th>
+            <td>{{ order.OrderNumber }}</td>
+            <td>{{ order.ProviderName }}</td>
+            <td>{{ order.Observation }}</td>
+            <td>{{ order.DateCreated }}</td>
+            <td>{{ order.TotalValue }}</td>
+            <td>{{ order.Status }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="updateOrder = true;;openFormUpdateOrder(order_form,order)"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="deleteOrder(order)"
+              >
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Crear y actualizar Ordenes -->
+<ng-template #order_form let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel">Formulario Ordenar</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="createProduct=false;newOrder = [];modal.dismiss()"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div id="client-form-div" class="card-body">
+        <h5 class="card-title">Registrar Datos</h5>
+        <div class="form-group row">
+          <div class="col-3 col-form-label">
+            <span id="client-type-lbl" class="d-block">Usuario:</span>
+            <select
+              class="form-control form-select-lg w-100"
+              id="usuario"
+              name="usuario"
+              [(ngModel)]="newOrder.usuario"
+            >
+              <option value="" selected>Elegir un usuario</option>
+              <option *ngFor="let user of users" value="{{ user.IdUser }}">
+                {{ user.Name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-xl-3 col-form-label">
+            <div style="display: flex">
+              <label id="orderNumber">Número de orden </label>
+            </div>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="0.0"
+              [(ngModel)]="newOrder.numOrden"
+            />
+          </div>
+
+          <div class="col-3 col-form-label">
+            <label id="fecha">Fecha </label>
+            <input
+              type="date"
+              class="form-control"
+              id="datetime"
+              name="datetime"
+              [(ngModel)]="newOrder.fecha"
+            />
+          </div>
+
+          <div class="col-3 col-form-label">
+            <label id="provider">Proveedor </label>
+            <input
+              class="form-control"
+              id="proveedor"
+              [(ngModel)]="newOrder.proveedor"
+            />
+          </div>
+
+          <div class="col-3 col-form-label">
+            <label id="obser" for="inputSex">Observación</label>
+            <input
+              type="text"
+              class="form-control"
+              id="obs"
+              [(ngModel)]="newOrder.obs"
+            />
+          </div>
+
+          <div class="col-xl-3 col-form-label">
+            <label id="value">Total de orden </label>
+            <input
+              class="form-control"
+              type="number"
+              id="TotalValue "
+              placeholder="0.0"
+              [(ngModel)]="newOrder.total"
+            />
+          </div>
+          <div class="col-xl-3 col-form-label">
+            <label id="value">Crear Produto</label>
+            <button
+              type="button"
+              class="btn btn-danger form-control"
+              (click)="createProduct = true"
+            >
+              Crear
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="agregarcliente-infoextra">
+      <hr />
+      <div class="lists-scrollables-container row"></div>
+    </div>
+  </div>
+
+  <div *ngIf="createProduct" class="modal-body">
+    <div class="card">
+      <div id="client-form-div" class="card-body">
+        <h5 class="card-title">Producto</h5>
+        <div class="form-group row">
+          <div class="col-3 col-form-label">
+            <span id="" class="d-block">Codigo de registro</span>
+            <input
+              class="form-control"
+              id="registroCod"
+              [(ngModel)]="newProduct.SKU"
+            />
+          </div>
+
+          <div class="col-xl-3 col-form-label">
+            <div style="display: flex">
+              <label id="orderNumber">Descripción del Producto</label>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="pollo"
+              [(ngModel)]="newProduct.Description"
+            />
+          </div>
+
+          <div class="col-3 col-form-label">
+            <span id="" class="d-block">Unidad de Medida</span>
+            <select
+              class="form-control form-select-lg w-100"
+              id="medida"
+              name="medida"
+              [(ngModel)]="newProduct.Unit"
+            >
+              <option value="" selected>Elegir un usuario</option>
+              <option value="KG">Kilogramo</option>
+              <option value="Mg">Miligramo</option>
+              <option value="Lt">Litro</option>
+              <option value="Ml">Mililitro</option>
+            </select>
+          </div>
+          <div class="col-3 col-form-label">
+            <label id="peso">Peso </label>
+            <input
+              type="text"
+              class="form-control"
+              id="peso"
+              name="peso"
+              [(ngModel)]="newProduct.Weight"
+            />
+          </div>
+
+          <div class="col-3 col-form-label">
+            <label id="volumen">Volumen </label>
+            <input
+              class="form-control"
+              id="volumen"
+              [(ngModel)]="newProduct.Volumen"
+            />
+          </div>
+
+          <div class="col-3 col-form-label">
+            <label id="cantCaja">Cantidad por caja</label>
+            <input
+              type="number"
+              class="form-control"
+              id="QtyBox"
+              [(ngModel)]="newProduct.QtyBox"
+            />
+          </div>
+
+          <div class="col-xl-3 col-form-label">
+            <label id="mc">Marca </label>
+            <input
+              class="form-control"
+              type="text"
+              id="marca "
+              placeholder="Toyota"
+              [(ngModel)]="newProduct.Mark"
+            />
+          </div>
+          <div class="col-xl-3 col-form-label">
+            <label id="mc">Valor Unitario </label>
+            <input
+              class="form-control"
+              type="number"
+              id="ValueUnit "
+              placeholder="12.5"
+              [(ngModel)]="newProduct.ValueUnit"
+            />
+          </div>
+          <div class="col-xl-3 col-form-label">
+            <label id="mc">Cantidad en la Orden </label>
+            <input
+              class="form-control"
+              type="number"
+              id="ValueUnit "
+              placeholder="12.5"
+              [(ngModel)]="newProduct.Quantity"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="agregarcliente-infoextra">
+      <hr />
+      <div class="lists-scrollables-container row"></div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-sm btn-secondary"
+      (click)="createProduct=false;newOrder = [];modal.dismiss()"
+    >
+      Cancelar
+    </button>
+    <button
+      type="button"
+      class="btn btn-sm btn-primary"
+      (click)="saveOrUpdateOrder(); modal.dismiss()"
+    >
+      Guardar
+    </button>
+  </div>
+</ng-template>

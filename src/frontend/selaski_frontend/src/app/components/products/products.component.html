@@ -1,0 +1,51 @@
+<br />
+<br />
+<div class="container">
+  <br />
+  <br />
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID Product</th>
+            <th scope="col">ID Order</th>
+            <th scope="col">Codigo de Registro</th>
+            <th scope="col">Valor Unitario</th>
+            <th scope="col">Unidad de Medida</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Volumen</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Cant x Caja</th>
+            <th scope="col">Cantidad Ordenada</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <th scope="row">{{ product.IdOrdersProducts }}</th>
+            <th scope="row">{{ product.IdOrder }}</th>
+            <td>{{ product.SKU }}</td>
+            <td>{{ product.ValueUnit }}</td>
+            <td>{{ product.Unit }}</td>
+            <td>{{ product.Description }}</td>
+            <td>{{ product.Weight }}</td>
+            <td>{{ product.Volumen }}</td>
+            <td>{{ product.Mark }}</td>
+            <td>{{ product.QtyBox }}</td>
+            <td>{{ product.Quantity }}</td>
+            <td>{{ product.Status }}</td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="deleteProduct(product)">
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

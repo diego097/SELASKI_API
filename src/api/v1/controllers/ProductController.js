@@ -3,7 +3,8 @@ const productCtrl = {};
 
 productCtrl.create = async (req, res) => {
   try {
-    const data = req.body;
+    const data = req.body.params;
+    console.log(data);
     pool.query(
       "INSERT INTO ordersproducts (IdOrder, ValueUnit, Unit, Description, SKU, Quantity, QtyBox, Weight, Volumen, Mark, Status) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
       [
@@ -38,7 +39,8 @@ productCtrl.create = async (req, res) => {
 
 productCtrl.delete = async (req, res) => {
   try {
-    const data = req.body;
+    const data = req.query;
+    console.log(data);
     pool.query(
       "UPDATE ordersproducts SET Status = 0 WHERE IdOrdersProducts  = ?",
       [data.IdOrdersProducts ],
@@ -86,7 +88,7 @@ productCtrl.get = async (req, res) => {
           endpoitn: "Products",
           method: "Get",
           errCod: "OK-00",
-          orders: data,
+          products: data,
         });
       }
     );
