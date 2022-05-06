@@ -10,6 +10,16 @@
       Crear Orden
     </button>
   </div>
+
+  <div class="bd-example">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="logOut()"
+    > <a href="#"></a>
+      Salir
+    </button>
+  </div>
   <br />
   <br />
   <div class="row">
@@ -87,9 +97,9 @@
               name="usuario"
               [(ngModel)]="newOrder.usuario"
             >
-              <option value="" selected>Elegir un usuario</option>
-              <option *ngFor="let user of users" value="{{ user.IdUser }}">
-                {{ user.Name }}
+              <option *ngIf="!user" value="" selected>Elegir un usuario</option>
+              <option *ngIf="user" value="{{ user.IdUser }}">
+                {{ user.nombre }}
               </option>
             </select>
           </div>

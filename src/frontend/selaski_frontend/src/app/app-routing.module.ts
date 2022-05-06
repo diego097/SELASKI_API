@@ -5,9 +5,11 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { ProductsComponent } from './components/products/products.component';
 import { UsersComponent } from './components/users/users.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 const routes: Routes = [
   {path: '', component: UsersComponent},
+  {path: 'auth', component: AuthComponent},
   {path: 'users', component: UsersComponent},
   {path: 'orders', component: OrdersComponent},
   {path: 'products', component: ProductsComponent},

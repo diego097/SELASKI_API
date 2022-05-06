@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { ProductService } from 'src/app/services/product.service';
+import { AuthService } from 'src/app/services/auth.service';
 import {
   NgbModal,
   ModalDismissReasons,
@@ -22,6 +23,7 @@ export class OrdersComponent implements OnInit {
   /** Arreglos que almacenan la lista de usuarios y ordenes consultadas al endpoint */
   orders: any;
   users: any;
+  user:any;
 
   /** variables de control para realizar acciones */
   createProduct = false;
@@ -31,10 +33,12 @@ export class OrdersComponent implements OnInit {
     private orderSevice: OrderService,
     private userSevice: UserService,
     private productService: ProductService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authService : AuthService
   ) {}
 
   ngOnInit(): void {
+    this.getCurrentUser();
     this.getOrders();
     this.getUsers();
     this.newOrder = [];
@@ -58,9 +62,8 @@ export class OrdersComponent implements OnInit {
   /** Metodo para guardar y actualizar ordenes y para crear productos */
   async saveOrUpdateOrder() {
 
-    console.log(this.newOrder);
     const params = {
-      IdUser: parseInt(this.newOrder.usuario),
+      IdUser: parseInt(this.user.IdUser),
       IdOrder: parseInt(this.newOrder.IdOrder),
       OrderNumber: this.newOrder.numOrden,
       DateTime: this.newOrder.fecha,
@@ -70,8 +73,10 @@ export class OrdersComponent implements OnInit {
       TotalValue: this.newOrder.total,
       Status: 1
     }
+    console.log(params);
+
     const productParams = {
-      IdOrder: parseInt(this.orders[this.orders.length -1].IdOrder) +1,
+      IdOrder: 1,
       ...this.newProduct,
       Status: 1
     }
@@ -102,6 +107,14 @@ export class OrdersComponent implements OnInit {
     this.modalService.open(element, options);
   }
 
+  getCurrentUser(){
+    const user = this.authService.getUser();
+    this.user = user != null ? user : null;
+  }
+
+  logOut(){
+    this.authService.logOut();
+  }
   /** Metodo para abrir el modal de actualizar Orden */
   async openFormUpdateOrder(element: any, order:any) {
 

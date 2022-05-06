@@ -12,6 +12,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UsersComponent } from './components/users/users.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { UsersComponent } from './components/users/users.component';
     HeaderComponent,
     FooterComponent,
     UsersComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
